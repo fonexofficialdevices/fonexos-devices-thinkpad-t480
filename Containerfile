@@ -159,14 +159,6 @@ RUN dnf5 install -y usbguard && \
 # ---------------------------------------------------------------------
 
 # INCLUDED INSIDE system_files!
- 
-# ---------------------------------------------------------------------
-# 5. Telemetry hosts block
-# ---------------------------------------------------------------------
-COPY hosts-blocklist.txt /tmp/hosts-blocklist.txt
-RUN cat /tmp/hosts-blocklist.txt >> /etc/hosts && \
-    rm /tmp/hosts-blocklist.txt
- 
 # ---------------------------------------------------------------------
 # 6. Mask cockpit (local admin web console — unnecessary attack surface
 #    on a desktop image; skip this line if you actually want cockpit
