@@ -1,0 +1,41 @@
+# FonexOS baked-in kernel arguments
+# Bake into image at: /usr/lib/bootc/kargs.d/fonexos-hardening.toml
+# bootc reads kargs.d fragments at image-build time and applies them
+# on every deployment — this is the correct place for this (NOT sysctl,
+# NOT grubby, since /etc/default/grub edits won't survive rebases).
+#
+# Reference: bootc kargs.d spec (TOML, "kargs" array of strings)
+
+kargs = [
+  # Spectre/Meltdown + speculative execution mitigations, full set
+  "mitigations=auto,nosmt",
+
+  # IOMMU enforcement (DMA attack protection) — Intel; add amd_iommu=on
+  # as an alternate line if you build separate Intel/AMD variants
+  "intel_iommu=on",
+  "iommu=force",
+
+  # Kernel lockdown in confidentiality mode (blocks kexec, /dev/mem, etc.)
+  "lockdown=confidentiality",
+
+  # Slab freelist hardening + redzoning (catches use-after-free/overflow)
+  "slab_nomerge",
+  "init_on_alloc=1",
+  "init_on_free=1",
+  "page_alloc.shuffle=1",
+
+  # Disable legacy vsyscall (classic ROP target)
+  "vsyscall=none",
+
+  # Restrict debugfs (leaks kernel internals)
+  "debugfs=off",
+]
+
+# CAVEAT FOR FONEXOS SPECIFICALLY:
+# mitigations=auto,nosmt and slab_nomerge carry a real perf cost, which
+# cuts against why you picked the CachyOS kernel in the first place.
+# Recommend: keep these OUT of the main FonexOS image, and only apply
+# this kargs.d fragment in a separate "fonexos-secure" recipe/tag that
+# rebases onto a non-CachyOS (stock Fedora or secureblue-style hardened)
+# kernel. Mixing perf-kernel + full lockdown kargs defeats the point of
+# the perf kernel and can cause boot instability on some hardware.

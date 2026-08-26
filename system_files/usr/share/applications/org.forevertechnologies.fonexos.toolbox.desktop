@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Fonex Toolbox
+GenericName=System Toolbox
+Comment=Manage your FonexOS system — updates, apps, networking, hardware, and diagnostics
+Exec=python3 /usr/share/fonexos/toolbox/fonexos_toolbox.py
+Icon=fonexos-toolbox
+Terminal=true
+Categories=System;Settings;
+Keywords=fonexos;system;update;rpm-ostree;maintenance;toolbox;
+StartupNotify=true

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Fonex Toolbox — Theming
+GenericName=Theme Switcher
+Comment=Switch between Dark, Light, and Auto themes, or restore the stock GNOME look
+Exec=/usr/bin/fonex-theming
+Icon=preferences-desktop-theme
+Terminal=true
+Categories=Settings;DesktopSettings;
+Keywords=theme;dark;light;appearance;gnome;fonexos;toolbox;
+StartupNotify=true
