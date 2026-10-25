@@ -103,22 +103,6 @@ RUN gnome-extensions enable blur-my-shell@aunetx
 # Dash to Dock extension
 RUN dnf5 -y install gnome-shell-extension-dash-to-dock
 
-# =============================================================================
-# 6. Install Howdy for facial recognition
-# =============================================================================
-
-# Pull the Fedora 44 repository file directly to avoid copr plugin issues
-ADD https://copr.fedorainfracloud.org/coprs/ronnypfannschmidt/howdy-beta/repo/fedora-44/ronnypfannschmidt-howdy-beta-fedora-44.repo /etc/yum.repos.d/howdy-beta.repo
-
-RUN dnf5 -y install howdy howdy-gtk howdy-authselect && \
-    dnf5 clean all
-
-# Ensure world-readable permissions for wallpapers and XML files
-RUN chmod -R 644 /usr/share/backgrounds/fonexos/* && \
-    chmod 644 /usr/share/gnome-background-properties/* && \
-    glib-compile-schemas /usr/share/glib-2.0/schemas
-
-# NO.7 #    
 #### SYSTEM HARDENING!!!!!!
 
 # ---------------------------------------------------------------------
